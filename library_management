@@ -1,48 +1,52 @@
 class Library:
     def __init__(self):
-        self.book_list = [] 
+        self._book_list = []
 
     def entry_book(self, book):
-        self.book_list.append(book)
+        self._book_list.append(book)
 
     def view_all_books(self):
-        if not self.book_list:
+        if not self._book_list:
             print("No books available in the library.")
             return
-        for book in self.book_list:
+        for book in self._book_list:
             book.view_book_info()
 
     def find_book(self, book_id):
-        for book in self.book_list:
-            if book.book_id == book_id:
+        for book in self._book_list:
+            if book._book_id == book_id:
                 return book
         return None
 
 
 class Book:
     def __init__(self, book_id, title, author):
-        self.book_id = book_id  
-        self.title = title 
-        self.author = author  
-        self.availability = True  
+        self.__book_id = book_id
+        self.__title = title
+        self.__author = author
+        self.__availability = True
 
     def borrow_book(self):
-        if self.availability:
-            self.availability = False
-            print(f"Book '{self.title}' has been borrowed.")
+        if self.__availability:
+            self.__availability = False
+            print(f"Book '{self.__title}' has been borrowed.")
         else:
-            print(f"Book '{self.title}' is already borrowed. Please try again!")
+            print(f"Book '{self.__title}' is already borrowed. Please try again!")
 
     def return_book(self):
-        if not self.availability:
-            self.availability = True
-            print(f"Book '{self.title}' has been returned.")
+        if not self.__availability:
+            self.__availability = True
+            print(f"Book '{self.__title}' has been returned.")
         else:
-            print(f"Book '{self.title}' was not borrowed.")
+            print(f"Book '{self.__title}' was not borrowed.")
 
     def view_book_info(self):
-        status = "Available" if self.availability else "Borrowed"
-        print(f"Book ID: {self.book_id}, Title: {self.title}, Author: {self.author}, Status: {status}")
+        status = "Available" if self.__availability else "Borrowed"
+        print(f"Book ID: {self.__book_id}, Title: {self.__title}, Author: {self.__author}, Status: {status}")
+
+    @property
+    def _book_id(self):
+        return self.__book_id
 
 
 def menu():
